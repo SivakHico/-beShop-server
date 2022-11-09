@@ -70,7 +70,7 @@ router.put('/:id', async (req, res) => {
 
     if (!user) return res.status(400).send('the user cannot be created!')
 
-    res.send(user)
+    res.send({ user })
 })
 
 router.post('/login', async (req, res) => {
@@ -111,9 +111,10 @@ router.post('/register', async (req, res) => {
     })
     user = await user.save()
 
-    if (!user) return res.status(400).send('the user cannot be created!')
+    if (!user)
+        return res.status(400).json({ success: false, message: 'the user cannot be created!' })
 
-    res.send(user)
+    res.send({ user })
 })
 
 router.delete('/:id', (req, res) => {
@@ -131,7 +132,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.get(`/get/count`, async (req, res) => {
-    const userCount = await User.countDocuments((count) => count)
+    const userCount = await User.countDocuments({})
 
     if (!userCount) {
         res.status(500).json({ success: false })
