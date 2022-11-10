@@ -10,7 +10,7 @@ router.get(`/`, async (req, res) => {
     if (!userList) {
         res.status(500).json({ success: false })
     }
-    res.send(userList)
+    res.send({ userList })
 })
 
 router.get('/:id', async (req, res) => {
@@ -19,7 +19,7 @@ router.get('/:id', async (req, res) => {
     if (!user) {
         res.status(500).json({ message: 'The user with the given ID was not found.' })
     }
-    res.status(200).send(user)
+    res.status(200).send({ user })
 })
 
 router.post('/', async (req, res) => {
@@ -39,7 +39,7 @@ router.post('/', async (req, res) => {
 
     if (!user) return res.status(400).send('the user cannot be created!')
 
-    res.send(user)
+    res.send({ user })
 })
 
 router.put('/:id', async (req, res) => {
